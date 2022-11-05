@@ -4,25 +4,6 @@
   
   
   <entry>
-    <title>第一章 程序的执行</title>
-    <link href="/2022/11/04/C%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%BF%9B%E9%98%B6%E6%95%99%E7%A8%8B/"/>
-    <url>/2022/11/04/C%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%BF%9B%E9%98%B6%E6%95%99%E7%A8%8B/</url>
-    
-    <content type="html"><![CDATA[<h1 id="第一章-程序的执行"><a href="#第一章-程序的执行" class="headerlink" title="第一章 程序的执行"></a>第一章 程序的执行</h1><h3 id="1-1编译"><a href="#1-1编译" class="headerlink" title="1.1编译"></a>1.1编译</h3><ul><li><p><strong>常用Linux命令</strong>：</p><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs stata"><span class="hljs-keyword">cd</span>:change directory（更改目录）<br><span class="hljs-keyword">pwd</span>:<span class="hljs-keyword">print</span> the current working directory（类似于/home/yourname/）<br><span class="hljs-keyword">mkdir</span>:make a new directory（创建一个新目录/文件夹）<br>gcc prog1.c -o <span class="hljs-keyword">prog</span>:把prog1.c转换为可执行文件<span class="hljs-keyword">prog</span>，gcc-&gt;执行gcc指令；prog1.c-&gt;gcc指令的输入；-o-&gt;指定输出文件的名字；<span class="hljs-keyword">prog</span>-&gt;输出文件名、可执行文件。<br><span class="hljs-keyword">file</span>:寻找文件信息(<span class="hljs-keyword">file</span> <span class="hljs-keyword">prog</span>)<br><span class="hljs-keyword">man</span>:<span class="hljs-keyword">display</span> a namnul page（显示手册页）<br>./<span class="hljs-keyword">prog</span>:执行<span class="hljs-keyword">prog</span><br><span class="hljs-keyword">more</span>/less/<span class="hljs-keyword">cat</span>:查看文件内容<br>diff:判断两个文件是否相同，若不同则逐行显示不同之处。<br>diff -w:忽略空格<br>diff -q:只显示文件之间是否相同，不逐行显示差异<br></code></pre></td></tr></table></figure><ul><li><del>gcc prog1.c -o progl.c</del>:错误的，会擦除文件prog1.c</li></ul><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">//prog1.c</span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdlib.h&gt;</span></span><br><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">char</span> * * argv)</span> &#123;<br><span class="hljs-type">int</span> a = <span class="hljs-number">5</span>;<br><span class="hljs-type">int</span> b = <span class="hljs-number">17</span>;<br><span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;main: a = %d, b = %d, argc = %d\n&quot;</span>, a, b, argc);<br><span class="hljs-keyword">return</span> EXIT_SUCCESS;<br>&#125;<br></code></pre></td></tr></table></figure><p><img src="/2022/11/04/C%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%BF%9B%E9%98%B6%E6%95%99%E7%A8%8B/image-20221105000257749.png" alt="argc 储存赋给程序的实参的数量"></p><p>（使用<em>gcc prog1.c -o prog</em>命令时，argc值为4）</p><figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs 1c">emacs prog1.c <span class="hljs-meta">&amp;</span><br></code></pre></td></tr></table></figure><p>​<em>&amp;</em> 允许同时使用终端和Emacs编辑器，若没有 <em>&amp;</em> ，终端将强制等待直到Emacs退出。</p></li></ul><h3 id="1-2重定向输出"><a href="#1-2重定向输出" class="headerlink" title="1.2重定向输出"></a>1.2重定向输出</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">./prog abc 123 C Programming &gt; output<br></code></pre></td></tr></table></figure><p>​输出会保存到文件中。</p><p><img src="/2022/11/04/C%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%BF%9B%E9%98%B6%E6%95%99%E7%A8%8B/image-20221105000325929.png" alt="输出重定向"></p><p>​<em><strong>Linux中的meld程序可以实现并排展现文件之间的差异。</strong></em>（待补充）</p>]]></content>
-    
-    
-    
-    <tags>
-      
-      <tag>C-Study(Intermediate C Programming)</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title>my-day</title>
     <link href="/2022/11/04/my-day/"/>
     <url>/2022/11/04/my-day/</url>
